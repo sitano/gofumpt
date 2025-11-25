@@ -2,7 +2,15 @@
 
 [![Go Reference](https://pkg.go.dev/badge/mvdan.cc/gofumpt/format.svg)](https://pkg.go.dev/mvdan.cc/gofumpt/format)
 
-	go install mvdan.cc/gofumpt@latest
+This is fork of the original version that is configurable and does not break imports.
+
+    go install github.com/sitano/gofumpt@latest
+
+New flags:
+
+    -ignore_imports Do not touch imports.
+    -short_line_limit int Multiline nodes which could easily fit on a single line under this many bytes may be collapsed onto a single line. Default is 60.
+    -long_line_limit int Single-line nodes which take over this many bytes, and could easily be split into two lines of at least its minSplitFactor factor, may be split. Default is 100.
 
 Enforce a stricter format than `gofmt`, while being backwards compatible.
 That is, `gofumpt` is happy with a subset of the formats that `gofmt` is happy with.
@@ -12,7 +20,7 @@ It can be used as a drop-in replacement to format your Go code,
 and running `gofmt` after `gofumpt` should produce no changes.
 For example:
 
-	gofumpt -l -w .
+    gofumpt -l -w .
 
 Some of the Go source files in this repository belong to the Go project.
 The project includes copies of `go/printer` and `go/doc/comment` as of Go 1.25.0
@@ -503,21 +511,21 @@ Once `gofumpt` is installed, follow the steps below:
 
 - Open **Settings** (File > Settings)
 - Open the **Tools** section
-- Find the *File Watchers* sub-section
+- Find the _File Watchers_ sub-section
 - Click on the `+` on the right side to add a new file watcher
-- Choose *Custom Template*
+- Choose _Custom Template_
 
 When a window asks for settings, you can enter the following:
 
-* File Types: Select all .go files
-* Scope: Project Files
-* Program: Select your `gofumpt` executable
-* Arguments: `-w $FilePath$`
-* Output path to refresh: `$FilePath$`
-* Working directory: `$ProjectFileDir$`
-* Environment variables: `GOROOT=$GOROOT$;GOPATH=$GOPATH$;PATH=$GoBinDirs$`
+- File Types: Select all .go files
+- Scope: Project Files
+- Program: Select your `gofumpt` executable
+- Arguments: `-w $FilePath$`
+- Output path to refresh: `$FilePath$`
+- Working directory: `$ProjectFileDir$`
+- Environment variables: `GOROOT=$GOROOT$;GOPATH=$GOPATH$;PATH=$GoBinDirs$`
 
-To avoid unnecessary runs, you should disable all checkboxes in the *Advanced* section.
+To avoid unnecessary runs, you should disable all checkboxes in the _Advanced_ section.
 
 #### Vim
 
@@ -607,6 +615,7 @@ including setting `lsp_format_on_save` to `true`.
 ```
 
 ### Zed
+
 For `gofumpt` to be used in Zed, you need to set the `gofumpt` option in the LSP settings. This is done by providing the `"gofumpt": true` in `initialization_options`.
 
 ```json
